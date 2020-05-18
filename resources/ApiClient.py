@@ -13,7 +13,9 @@ class ApiClient():
         
     def processResponse(self, r):
         if r.status_code == 200:
-            return r.json()    
+            return r.json()
+        elif r.status_code == 204:
+            pass 
         else:
             exception = ApiCallError(r.json(), r.status_code)
             raise exception
@@ -26,6 +28,12 @@ class ApiClient():
         
     def postData(self, resource, data_dict):
         return self.processResponse(requests.post("{}/{}".format(self.url,resource), auth=HTTPBasicAuth(self.user, self.user_pass), json=data_dict))
+
+    def deleteData(self, resource, params=None):
+        if params == None:
+            return self.processResponse(requests.delete("{}/{}".format(self.url,resource), auth=HTTPBasicAuth(self.user, self.user_pass)))
+        else:
+            return self.processResponse(requests.delete("{}/{}".format(self.url,resource), auth=HTTPBasicAuth(self.user, self.user_pass), params=params))
 
     def putData(self, resource, data_dict):
         return self.processResponse(requests.put("{}/{}".format(self.url,resource), auth=HTTPBasicAuth(self.user, self.user_pass), json=data_dict))

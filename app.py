@@ -14,27 +14,26 @@ from resources import *
 from sys import argv
 
 def main():
-    
-    # assign user groups to project roles
+
     if argv[1] == 'EAD': 
         execution = UserDataExtractor()
         execution.extractProjectAdmins()
     
-    # assign user groups to project roles
     if argv[1] == 'G2R':
-        
         execution = GroupRoleAssigner()
         execution.assignGroupsToRoles()
     
-    # extract target user-role memberships
     elif argv[1] == 'EUD':
-        
         execution = UserDataExtractor()
         execution.printGroupMemberships()
 
     elif argv[1] == "UPS":
         execution = PermSchemeUpdater()
         execution.updatePermScheme()
+
+    elif argv[1] == "DRA":
+        execution = RoleActorEraser()
+        execution.deleteRoleActors()
     
 if __name__ == '__main__':
     main()

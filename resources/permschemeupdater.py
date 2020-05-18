@@ -1,20 +1,21 @@
 # -*- coding: utf-8 -*-
 from .ApiClient import ApiClient, ApiCallError
 from .config import Config
+from .grouproleassigner import GroupRoleAssigner
 
 class PermSchemeUpdater:
     def __init__(self):
         self.client = ApiClient()
+        self.fileReader = GroupRoleAssigner()
 
     def updatePermScheme(self):
         # get all projects
-        all_projects = self.client.getData("project")
+        project_keys = self.fileReader.readFile()
 
-        print("\nAll projects have been retrieved. There are {} projects.\n".format(len(all_projects)))
+        print("\nAll projects have been retrieved. There are {} projects.\n".format(len(project_keys)))
     
         # assign the new permission scheme to each project
-        for element in all_projects:
-            key = element['key']
+        for key in project_keys:
 
             # assign new scheme
             try:

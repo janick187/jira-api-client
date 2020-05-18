@@ -10,3 +10,4 @@ from .Role import Role
 from .Group import Group
 from .grouproleassigner import GroupRoleAssigner
 from .permschemeupdater import PermSchemeUpdater
+from .roleactoreraser import RoleActorEraser
